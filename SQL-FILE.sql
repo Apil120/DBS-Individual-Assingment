@@ -375,11 +375,3 @@ SELECT ar.stage_name, u.first_name
 FROM Artist ar
 RIGHT JOIN User u ON u.user_id = ar.user_id;
 
--- FULL OUTER JOIN equivalent in MySQL: use UNION
-SELECT u.user_id, u.first_name, ar.stage_name
-FROM User u
-LEFT JOIN Artist ar ON u.user_id = ar.user_id
-UNION
-SELECT u.user_id, u.first_name, ar.stage_name
-FROM Artist ar
-RIGHT JOIN User u ON u.user_id = ar.user_id;
