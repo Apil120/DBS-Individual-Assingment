@@ -343,7 +343,7 @@ SELECT
     a.release_date
 FROM Album a
 JOIN Artist ar ON a.artist_id = ar.artist_id;
-
+SELECT * FROM AlbumArtistView;
 
 -- View
 CREATE VIEW TrackDetailsView AS
@@ -356,6 +356,7 @@ SELECT
 FROM Track t
 JOIN Album al ON t.album_id = al.album_id
 JOIN Genre g ON t.genre_id = g.genre_id;
+SELECT * FROM TrackDetailsView;
 
 
 
