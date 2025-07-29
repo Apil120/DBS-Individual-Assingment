@@ -213,7 +213,8 @@ INSERT INTO Album(album_id, artist_id, album_name, release_date) VALUES
 ('ALB-007', 'ART-008', 'Zen Frequency', '2025-07-19'),
 ('ALB-008', 'ART-009', 'City Lights', '2025-08-01'),
 ('ALB-009', 'ART-010', 'Everest Beats', '2025-09-14'),
-('ALB-010', 'ART-011', 'Ragga Nights', '2025-10-10');
+('ALB-010', 'ART-011', 'Ragga Nights', '2025-10-10'),
+('ALB-011','ART-002','Hazy Nights','2025-10-10');
 
 INSERT INTO Genre(genre_id, genre_name) VALUES
 ('GEN-001', 'Rock'),
@@ -277,3 +278,36 @@ INSERT INTO Playlist_Track(playlist_id, track_id) VALUES
 ('PLAY-005', 'TRK-008'),
 ('PLAY-006', 'TRK-009'),
 ('PLAY-007', 'TRK-010');
+
+-- Count Function
+SELECT COUNT(*) AS total_users FROM User;
+
+-- Sum Function
+SELECT SUM(duration) AS total_duration FROM Track;
+
+-- Average Function
+SELECT AVG(duration) AS average_duration FROM Track;
+
+-- Min Function
+SELECT MIN(release_date) AS earliest_release FROM Album;
+
+-- Max Function
+SELECT MAX(release_date) AS latest_release FROM Album;
+
+-- Order by 
+SELECT * FROM Album
+ORDER BY release_date ASC;
+
+SELECT * FROM Album
+ORDER BY release_date DESC;
+
+-- GROUP BY + HAVING: Number of albums per artist having more than 1 album
+SELECT artist_id, COUNT(*) AS album_count
+FROM Album
+GROUP BY artist_id
+HAVING COUNT(*) > 1;
+
+
+-- NOT IN: Find users who are not artists
+SELECT user_id, first_name FROM User
+WHERE user_id NOT IN (SELECT user_id FROM Artist);
