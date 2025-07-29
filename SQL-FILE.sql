@@ -311,3 +311,75 @@ HAVING COUNT(*) > 1;
 -- NOT IN: Find users who are not artists
 SELECT user_id, first_name FROM User
 WHERE user_id NOT IN (SELECT user_id FROM Artist);
+
+-- OR: Find tracks shorter than 2 mins OR longer than 5 mins
+SELECT * FROM Track
+WHERE duration < 120 OR duration > 300;
+
+-- EXISTS: Find users who have playlists
+SELECT user_id, first_name FROM User u
+WHERE EXISTS (
+    SELECT 1 FROM Playlist p WHERE p.user_id = u.user_id
+);
+
+-- BETWEEN: Find tracks between 3 to 4 mins
+SELECT * FROM Track
+WHERE duration BETWEEN 180 AND 240;
+
+-- AND: Find albums by a specific artist released after 2024
+SELECT * FROM Album
+WHERE artist_id = 'ART-002' AND release_date > '2024-12-31';
+
+-- LIKE: Find artists with 'MC' in stage name
+SELECT * FROM Artist
+WHERE stage_name LIKE '%MC%';
+
+
+-- View: Albums with Artist Name
+CREATE VIEW AlbumArtistView AS
+SELECT 
+    a.album_id,
+    a.album_name,
+    ar.stage_name,
+    a.release_date
+FROM Album a
+JOIN Artist ar ON a.artist_id = ar.artist_id;
+
+
+-- View: Tracks with Album and Genre
+CREATE VIEW TrackDetailsView AS
+SELECT 
+    t.track_id,
+    t.track_name,
+    al.album_name,
+    g.genre_name,
+    t.duration
+FROM Track t
+JOIN Album al ON t.album_id = al.album_id
+JOIN Genre g ON t.genre_id = g.genre_id;
+
+
+
+-- INNER JOIN: Get all tracks with album names
+SELECT t.track_name, al.album_name
+FROM Track t
+INNER JOIN Album al ON t.album_id = al.album_id;
+
+-- LEFT JOIN: Get all users and their artist profile if they have one
+SELECT u.first_name, u.last_name, ar.stage_name
+FROM User u
+LEFT JOIN Artist ar ON u.user_id = ar.user_id;
+
+-- RIGHT JOIN: Get all artists and their user info
+SELECT ar.stage_name, u.first_name
+FROM Artist ar
+RIGHT JOIN User u ON u.user_id = ar.user_id;
+
+-- FULL OUTER JOIN equivalent in MySQL: use UNION
+SELECT u.user_id, u.first_name, ar.stage_name
+FROM User u
+LEFT JOIN Artist ar ON u.user_id = ar.user_id
+UNION
+SELECT u.user_id, u.first_name, ar.stage_name
+FROM Artist ar
+RIGHT JOIN User u ON u.user_id = ar.user_id;
