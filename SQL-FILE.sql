@@ -62,6 +62,21 @@ CREATE TABLE Playlist_Track (
     FOREIGN KEY (track_id) REFERENCES Track(track_id)
 );
 
+ALTER TABLE Phone
+MODIFY user_id VARCHAR(7) NOT NULL;
+
+ALTER TABLE Artist
+MODIFY user_id VARCHAR(7) NOT NULL;
+
+ALTER TABLE Genre
+MODIFY genre_name VARCHAR(50) NOT NULL;
+
+ALTER TABLE Playlist_Track
+MODIFY playlist_id VARCHAR(8) NOT NULL;
+
+ALTER TABLE Playlist_Track
+MODIFY track_id VARCHAR(7) NOT NULL;
+
 INSERT INTO USER(user_id, first_name, last_name, date_of_birth, email) VALUES
 ('USR-001', 'Apil', 'Adhikari', '2005-10-27', 'apiladhikari@gmail.com'),
 ('USR-002', 'Kristhi', 'Chhetri', '2005-11-06', 'krishtichhetri@gmail.com'),
