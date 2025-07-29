@@ -301,41 +301,40 @@ ORDER BY release_date ASC;
 SELECT * FROM Album
 ORDER BY release_date DESC;
 
--- GROUP BY + HAVING: Number of albums per artist having more than 1 album
+-- GROUP BY + HAVING
 SELECT artist_id, COUNT(*) AS album_count
 FROM Album
 GROUP BY artist_id
 HAVING COUNT(*) > 1;
 
-
--- NOT IN: Find users who are not artists
+-- NOT IN
 SELECT user_id, first_name FROM User
 WHERE user_id NOT IN (SELECT user_id FROM Artist);
 
--- OR: Find tracks shorter than 2 mins OR longer than 5 mins
+-- OR
 SELECT * FROM Track
 WHERE duration < 120 OR duration > 300;
 
--- EXISTS: Find users who have playlists
+-- EXISTS
 SELECT user_id, first_name FROM User u
 WHERE EXISTS (
     SELECT 1 FROM Playlist p WHERE p.user_id = u.user_id
 );
 
--- BETWEEN: Find tracks between 3 to 4 mins
+-- BETWEEN
 SELECT * FROM Track
 WHERE duration BETWEEN 180 AND 240;
 
--- AND: Find albums by a specific artist released after 2024
+-- AND
 SELECT * FROM Album
 WHERE artist_id = 'ART-002' AND release_date > '2024-12-31';
 
--- LIKE: Find artists with 'MC' in stage name
+-- LIKE
 SELECT * FROM Artist
 WHERE stage_name LIKE '%MC%';
 
 
--- View: Albums with Artist Name
+-- View
 CREATE VIEW AlbumArtistView AS
 SELECT 
     a.album_id,
@@ -346,7 +345,7 @@ FROM Album a
 JOIN Artist ar ON a.artist_id = ar.artist_id;
 
 
--- View: Tracks with Album and Genre
+-- View
 CREATE VIEW TrackDetailsView AS
 SELECT 
     t.track_id,
