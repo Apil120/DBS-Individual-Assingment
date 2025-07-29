@@ -6,9 +6,6 @@ CREATE TABLE User (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     date_of_birth DATE NOT NULL,
-    address_street VARCHAR(100),
-    address_city VARCHAR(50),
-    address_zip VARCHAR(10),
     email VARCHAR(100) UNIQUE NOT NULL,
 );
 
